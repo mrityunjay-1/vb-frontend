@@ -114,7 +114,21 @@ const ChatHistory = () => {
             </div>
 
             <div className="call-history-container-summary-filter">
-                <br />
+                {/* Filter goes here */}
+
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>🗓️</p>
+
+                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3%", height: "2rem", marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }} />
+
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>~</p>
+
+                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3%", height: "2rem", marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }} />
+
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>APPLY FILTERS</p>
+
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>🔄</p>
+
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>🧲</p>
             </div>
 
             <div className="call-history-container-data-viewer">
@@ -268,20 +282,73 @@ const ChatHistory = () => {
                 <div style={{ overflowY: "scroll" }}>
 
                     <div style={{ display: "flex", padding: "1rem", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                        <p style={{ width: "8rem", height: "8rem", backgroundColor: "red", borderRadius: "10rem" }}></p>
+                        <p style={{ width: "8rem", height: "8rem", backgroundColor: "lightgreen", borderRadius: "10rem" }}>
+                            <img src="https://mrityunjay-1.github.io/portfolio/static/media/my_profile_img.fdf6ddba.png" alt="profileimage" style={{ width: "100%", height: "100%", borderRadius: "10rem" }} />
+                        </p>
                         <br />
-                        <p style={{ fontSize: "1.4rem" }}>{"Mrityunjay Kumar"}</p>
+                        <p style={{ fontSize: "1.4rem", marginBottom: "0.5rem" }}>{"Mrityunjay Kumar"}</p>
                         <p style={{ fontSize: "1.2rem", color: "grey" }}>{"7004516734"}</p>
-                        <audio controls>
+
+                        {/* Making custom audio player in js */}
+
+                        <br />
+                        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                            <div className="audio-player-controller">
+                                <p style={{ cursor: "pointer" }}>🔉</p>
+                                <input type="range" id="audio-seek-bar" style={{ cursor: "pointer", accentColor: "green", height: "0.3rem", width: "60%" }} />
+                                <p style={{ cursor: "pointer" }}>▶️</p>
+                                <p style={{ cursor: "pointer" }}>⏸️</p>
+
+                                <p>12:00 / 30:00</p>
+                            </div>
+                            {/* <div>
+
+                            </div> */}
+                        </div>
+
+                        {/* <audio controls>
                             <source src="http://localhost:8080/MZ1ba472049bedce2be9bd15febdb89543/user_20230221144836.wav" />
-                        </audio>
+                        </audio> */}
                     </div>
 
-<hr />
+                    <hr />
                     <div style={{ padding: "1rem", margin: "1rem 0" }}>
-                        <h3 style={{}}>
-                            {"user Details "}
-                        </h3>
+                        <h3 style={{}}> USER DETAILS </h3>
+
+                        <br />
+
+                        <div style={{ color: "grey", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ color: "grey", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ color: "grey", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}> LIVE CHAT DETAILS </h3>
 
                         <br />
 
@@ -314,11 +381,10 @@ const ChatHistory = () => {
                             </p>
                         </div>
                     </div>
-<hr />
-<div style={{ padding: "1rem", margin: "1rem 0" }}>
-                        <h3 style={{}}>
-                            {"user Details "}
-                        </h3>
+                    <hr />
+
+                    <div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}> USAGE PROFILE </h3>
 
                         <br />
 
@@ -351,12 +417,10 @@ const ChatHistory = () => {
                             </p>
                         </div>
                     </div>
-<hr />
+                    <hr />
 
-<div style={{ padding: "1rem", margin: "1rem 0" }}>
-                        <h3 style={{}}>
-                            {"user Details "}
-                        </h3>
+                    <div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}> USER SENTIMENTS </h3>
 
                         <br />
 
@@ -389,12 +453,10 @@ const ChatHistory = () => {
                             </p>
                         </div>
                     </div>
-<hr />
+                    <hr />
 
-<div style={{ padding: "1rem", margin: "1rem 0" }}>
-                        <h3 style={{}}>
-                            {"user Details "}
-                        </h3>
+                    <div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}> NOTES </h3>
 
                         <br />
 
@@ -427,12 +489,10 @@ const ChatHistory = () => {
                             </p>
                         </div>
                     </div>
-<hr />
+                    <hr />
 
-<div style={{ padding: "1rem", margin: "1rem 0"}}>
-                        <h3 style={{}}>
-                            {"user Details "}
-                        </h3>
+                    <div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}> TICKET - FRESHDESK </h3>
 
                         <br />
 
@@ -465,8 +525,7 @@ const ChatHistory = () => {
                             </p>
                         </div>
                     </div>
-<hr />
-
+                    <hr />
                 </div>
             </div>
 

@@ -60,11 +60,25 @@
     flex-direction: column;
 }
 
-
 .caller {
     cursor: pointer;
 }
 
 .caller:hover {
     background-color: lightgray;
+}
+
+.audio-player-controller {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.call-history-container-summary-filter {
+    height: 5rem;
+    background-color: rgb(235, 235, 235);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
