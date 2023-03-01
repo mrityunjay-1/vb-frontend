@@ -1,0 +1,7 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5%;
+    background-color: rgb(241, 241, 241);
+    box-shadow: 0.3rem 0.3rem 0.7rem lightgrey;
+}
