@@ -292,7 +292,7 @@ const ChatHistory = () => {
                         {/* Making custom audio player in js */}
 
                         <br />
-                        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                        {/* <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                             <div className="audio-player-controller">
                                 <p style={{ cursor: "pointer" }}>🔉</p>
                                 <input type="range" id="audio-seek-bar" style={{ cursor: "pointer", accentColor: "green", height: "0.3rem", width: "60%" }} />
@@ -301,14 +301,11 @@ const ChatHistory = () => {
 
                                 <p>12:00 / 30:00</p>
                             </div>
-                            {/* <div>
+                        </div> */}
 
-                            </div> */}
-                        </div>
-
-                        {/* <audio controls>
+                        <audio controls style={{ height: "2.5rem", width: "100%" }}>
                             <source src="http://localhost:8080/MZ1ba472049bedce2be9bd15febdb89543/user_20230221144836.wav" />
-                        </audio> */}
+                        </audio>
                     </div>
 
                     <hr />
