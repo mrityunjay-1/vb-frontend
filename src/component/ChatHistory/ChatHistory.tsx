@@ -10,7 +10,7 @@ const Caller = ({ details, currSession }: any) => {
 
     return (
         <>
-            <div onClick={() => details.callback(details.sessionId)} className="caller" style={{ padding: "1.5rem 1rem", display: "flex", borderBottom: "0.01rem solid lightgrey", backgroundColor: currSession === details.sessionId ? "lightgrey" : "white" }}>
+            <div onClick={() => details.callback(details.sessionId)} className="caller" style={{ borderRadius: "0.3rem", padding: "1.5rem 1rem", display: "flex", borderBottom: "0.01rem solid lightgrey", backgroundColor: currSession === details.sessionId ? "#e6e6e6" : "white" }}>
 
                 <div style={{ width: "14%" }}>
 
@@ -38,7 +38,6 @@ const ChatHistory = () => {
     const [currSessionDetails, setCurrSessionDetails] = useState([]);
 
     // const [audio, setAudio] = useState();
-
     // var audio = new Audio('http://localhost:8080/MZ1ba472049bedce2be9bd15febdb89542/user_20230221144755.wav');
     // audio.play();
 
@@ -88,7 +87,7 @@ const ChatHistory = () => {
 
     const playPauseAudio = (url: string) => {
 
-        if (aud) aud.pause();
+        if (aud) aud.pause(); // clears memory for previous audio play if any
 
         const audio = new Audio(url);
         audio.play();
@@ -98,17 +97,11 @@ const ChatHistory = () => {
     }
 
     useEffect(() => {
-
-        getAllSessions()
-
+        getAllSessions();
     }, []);
 
     useEffect(() => {
-
-        if (currSession) {
-            getSessionDetails(currSession);
-        }
-
+        if (currSession) getSessionDetails(currSession);
     }, [currSession]);
 
     return (
@@ -161,7 +154,14 @@ const ChatHistory = () => {
 
                     <div style={{ overflowY: "scroll", padding: "1rem" }}>
                         {
-                            currSessionDetails && currSessionDetails.map((chats: { user: { time: number, text: string, audio: string }, bot: { time: number, text: string, audio: string } }) => {
+                            currSessionDetails && currSessionDetails.map((chats: { user: { time: string, text: string, audio: string }, bot: { time: string, text: string, audio: string } }) => {
+
+                                let date = chats?.user?.time;
+                                let time = chats?.user?.time;
+
+                                date = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
+                                time = time.substring(8, 10) + ":" + time.substring(10, 12) + ":" + time.substring(12, 14);
+
                                 return (
                                     <div style={{ display: "flex", flexDirection: "column", fontSize: "1.4rem" }}>
 
@@ -174,7 +174,7 @@ const ChatHistory = () => {
                                                 </h3>
                                             </div>
 
-                                            <p style={{ width: "60%", backgroundColor: "lightgreen", borderRadius: "1rem", padding: "1rem" }}>
+                                            <p style={{ maxWidth: "60%", width: "auto", backgroundColor: "lightgreen", borderRadius: "1rem", padding: "1rem" }}>
                                                 {
 
                                                     chats?.user?.text ?? null
@@ -182,10 +182,10 @@ const ChatHistory = () => {
 
                                                 <br />
                                                 <br />
-                                                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
 
                                                     <div>
-                                                        <p>{chats?.user?.time ? new Date(chats?.user?.time).toLocaleDateString() : null}</p>
+                                                        <p style={{ color: "grey", fontSize: "1rem" }}>{time}</p>
                                                     </div>
 
                                                 </div>
@@ -203,23 +203,23 @@ const ChatHistory = () => {
                                         {/* aur bot hai mai */}
                                         <div style={{ marginTop: "2rem", display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
 
-                                            <p onClick={() => playPauseAudio(chats?.bot?.audio)}  style={{ cursor: "pointer", width: "5%" }}>
+                                            <p onClick={() => playPauseAudio(chats?.bot?.audio)} style={{ cursor: "pointer", width: "5%" }}>
                                                 🔉
-                                                </p>
+                                            </p>
 
                                             <div style={{ marginLeft: "1rem", width: "7%", order: 2 }}>
                                                 <h3 style={{ backgroundColor: "rgb(169,253, 166)", width: "2.5rem", height: "2.5rem", border: "0.1rem rgb(169,253, 166) grey", borderRadius: "4rem", display: "grid", placeItems: "center" }}>
                                                     B
                                                 </h3>
                                             </div>
-                                            <p style={{ border: "0.01rem solid lightgrey", width: "60%", backgroundColor: "white", borderRadius: "1rem", padding: "1rem" }}>
+                                            <p style={{ border: "0.01rem solid lightgrey", maxWidth: "60%", minWidth: "20%", width: "auto", backgroundColor: "white", borderRadius: "1rem", padding: "1rem" }}>
                                                 {
                                                     chats?.bot?.text ?? null
                                                 }
 
                                                 <br />
                                                 <br />
-                                                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
 
                                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                                         <p style={{ cursor: "pointer", width: "4%" }}>👍</p>
@@ -227,7 +227,7 @@ const ChatHistory = () => {
                                                     </div>
 
                                                     <div>
-                                                        <p>{chats?.bot?.time ? new Date(chats?.bot?.time).toLocaleDateString() : null}</p>
+                                                        <p style={{ color: "grey", fontSize: "1rem" }}>{time}</p>
                                                     </div>
 
                                                 </div>
