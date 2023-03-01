@@ -1,6 +1,6 @@
 import "./App.css";
 import ChatHistory from "./component/ChatHistory/ChatHistory";
-import Header from "./component/Header/Header";
+// import Header from "./component/Header/Header";
 
 const App = () => {
   return (
