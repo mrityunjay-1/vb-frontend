@@ -162,6 +162,8 @@ const ChatHistory = () => {
                                 date = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
                                 time = time.substring(8, 10) + ":" + time.substring(10, 12) + ":" + time.substring(12, 14);
 
+                                console.log("date: ", date);
+
                                 return (
                                     <div style={{ display: "flex", flexDirection: "column", fontSize: "1.4rem" }}>
 
