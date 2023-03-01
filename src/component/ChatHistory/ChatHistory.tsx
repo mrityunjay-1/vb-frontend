@@ -146,6 +146,7 @@ const ChatHistory = () => {
 
                 </div>
 
+                {/* Child - 2 showing actual logs */}
                 <div>
 
                     <div style={{ borderTopLeftRadius: "1rem", borderTopRightRadius: "1rem", position: "sticky", top: 0, padding: "1.5rem", display: "grid", placeItems: "center", backgroundColor: "rgb(233, 233, 233)", height: "3rem" }}>
@@ -167,77 +168,93 @@ const ChatHistory = () => {
                                 return (
                                     <div style={{ display: "flex", flexDirection: "column", fontSize: "1.4rem" }}>
 
-                                        {/* User hai mai */}
-                                        <div style={{ display: "flex", marginTop: "2rem", alignItems: "center" }}>
+                                        {/* User hai mai */}{
+                                            chats?.user?.text && chats?.user?.audio ?
+                                                <>
+                                                    <div style={{ display: "flex", marginTop: "2rem", alignItems: "center" }}>
 
-                                            <div style={{ width: "6%" }}>
-                                                <h3 style={{ backgroundColor: "rgb(169,253, 166)", width: "2.5rem", height: "2.5rem", border: "0.1rem rgb(169,253, 166) grey", borderRadius: "4rem", display: "grid", placeItems: "center" }}>
-                                                    U
-                                                </h3>
-                                            </div>
+                                                        <div style={{ width: "6%" }}>
+                                                            <h3 style={{ backgroundColor: "rgb(169,253, 166)", width: "2.5rem", height: "2.5rem", border: "0.1rem rgb(169,253, 166) grey", borderRadius: "4rem", display: "grid", placeItems: "center" }}>
+                                                                U
+                                                            </h3>
+                                                        </div>
 
-                                            <p style={{ maxWidth: "60%", width: "auto", backgroundColor: "lightgreen", borderRadius: "1rem", padding: "1rem" }}>
-                                                {
+                                                        <p style={{ maxWidth: "60%", width: "auto", backgroundColor: "lightgreen", borderRadius: "1rem", padding: "1rem" }}>
+                                                            {
 
-                                                    chats?.user?.text ?? null
-                                                }
+                                                                chats?.user?.text ?? null
+                                                            }
 
-                                                <br />
-                                                <br />
-                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                                                            <br />
+                                                            <br />
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
 
-                                                    <div>
-                                                        <p style={{ color: "grey", fontSize: "1rem" }}>{time}</p>
+                                                                <div>
+                                                                    <p style={{ color: "grey", fontSize: "1rem" }}>{time}</p>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </p>
+
+                                                        <p onClick={() => playPauseAudio(chats?.user?.audio)} style={{ cursor: "pointer", width: "5%", marginLeft: "1rem" }}>
+
+                                                            🔉
+
+                                                        </p>
+
                                                     </div>
+                                                </>
+                                                :
+                                                null
+                                        }
 
-                                                </div>
-
-                                            </p>
-
-                                            <p onClick={() => playPauseAudio(chats?.user?.audio)} style={{ cursor: "pointer", width: "5%", marginLeft: "1rem" }}>
-
-                                                🔉
-
-                                            </p>
-
-                                        </div>
 
                                         {/* aur bot hai mai */}
-                                        <div style={{ marginTop: "2rem", display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
 
-                                            <p onClick={() => playPauseAudio(chats?.bot?.audio)} style={{ cursor: "pointer", width: "5%" }}>
-                                                🔉
-                                            </p>
+                                        {
+                                            chats?.bot?.text && chats?.bot?.audio ?
+                                                <>
+                                                    <div style={{ marginTop: "2rem", display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
 
-                                            <div style={{ marginLeft: "1rem", width: "7%", order: 2 }}>
-                                                <h3 style={{ backgroundColor: "rgb(169,253, 166)", width: "2.5rem", height: "2.5rem", border: "0.1rem rgb(169,253, 166) grey", borderRadius: "4rem", display: "grid", placeItems: "center" }}>
-                                                    B
-                                                </h3>
-                                            </div>
-                                            <p style={{ border: "0.01rem solid lightgrey", maxWidth: "60%", minWidth: "20%", width: "auto", backgroundColor: "white", borderRadius: "1rem", padding: "1rem" }}>
-                                                {
-                                                    chats?.bot?.text ?? null
-                                                }
+                                                        <p onClick={() => playPauseAudio(chats?.bot?.audio)} style={{ cursor: "pointer", width: "5%" }}>
+                                                            🔉
+                                                        </p>
 
-                                                <br />
-                                                <br />
-                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                                                        <div style={{ marginLeft: "1rem", width: "7%", order: 2 }}>
+                                                            <h3 style={{ backgroundColor: "rgb(169,253, 166)", width: "2.5rem", height: "2.5rem", border: "0.1rem rgb(169,253, 166) grey", borderRadius: "4rem", display: "grid", placeItems: "center" }}>
+                                                                B
+                                                            </h3>
+                                                        </div>
 
-                                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                                        <p style={{ cursor: "pointer", width: "4%" }}>👍</p>
-                                                        <p style={{ cursor: "pointer", width: "4%" }}>👎</p>
+
+                                                        <p style={{ border: "0.01rem solid lightgrey", maxWidth: "60%", minWidth: "20%", width: "auto", backgroundColor: "white", borderRadius: "1rem", padding: "1rem" }}>
+                                                            {
+                                                                chats?.bot?.text ?? null
+                                                            }
+
+                                                            <br />
+                                                            <br />
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+
+                                                                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                                                    <p style={{ cursor: "pointer", width: "4%" }}>👍</p>
+                                                                    <p style={{ cursor: "pointer", width: "4%" }}>👎</p>
+                                                                </div>
+
+                                                                <div>
+                                                                    <p style={{ color: "grey", fontSize: "1rem" }}>{time}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </p>
+
                                                     </div>
 
-                                                    <div>
-                                                        <p style={{ color: "grey", fontSize: "1rem" }}>{time}</p>
-                                                    </div>
-
-                                                </div>
-                                            </p>
-
-
-
-                                        </div>
+                                                </>
+                                                :
+                                                null
+                                        }
 
                                     </div>
                                 );
@@ -247,8 +264,9 @@ const ChatHistory = () => {
                     </div>
                 </div>
 
+                {/* User profile details */}
                 <div>
-                    3
+
                 </div>
             </div>
 
