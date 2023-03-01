@@ -265,7 +265,207 @@ const ChatHistory = () => {
                 </div>
 
                 {/* User profile details */}
-                <div>
+                <div style={{ overflowY: "scroll" }}>
+
+                    <div style={{ display: "flex", padding: "1rem", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                        <p style={{ width: "8rem", height: "8rem", backgroundColor: "red", borderRadius: "10rem" }}></p>
+                        <br />
+                        <p style={{ fontSize: "1.4rem" }}>{"Mrityunjay Kumar"}</p>
+                        <p style={{ fontSize: "1.2rem", color: "grey" }}>{"7004516734"}</p>
+                        <audio controls>
+                            <source src="http://localhost:8080/MZ1ba472049bedce2be9bd15febdb89543/user_20230221144836.wav" />
+                        </audio>
+                    </div>
+
+<hr />
+                    <div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}>
+                            {"user Details "}
+                        </h3>
+
+                        <br />
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+                    </div>
+<hr />
+<div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}>
+                            {"user Details "}
+                        </h3>
+
+                        <br />
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+                    </div>
+<hr />
+
+<div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}>
+                            {"user Details "}
+                        </h3>
+
+                        <br />
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+                    </div>
+<hr />
+
+<div style={{ padding: "1rem", margin: "1rem 0" }}>
+                        <h3 style={{}}>
+                            {"user Details "}
+                        </h3>
+
+                        <br />
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+                    </div>
+<hr />
+
+<div style={{ padding: "1rem", margin: "1rem 0"}}>
+                        <h3 style={{}}>
+                            {"user Details "}
+                        </h3>
+
+                        <br />
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+                    </div>
+<hr />
 
                 </div>
             </div>
