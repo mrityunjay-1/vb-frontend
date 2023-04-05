@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: red; */
+    justify-content: space-between;
+    position: fixed;
+}
+
+.container-left {
+    width: 6%;
+    border-right: 0.01rem solid lightgrey;
+}
+
+.container-right {
+    width: 94%;
+    background-color: azure;
+    /* overflow: auto; */
+}
