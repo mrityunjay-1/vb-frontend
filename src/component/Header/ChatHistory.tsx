@@ -317,7 +317,7 @@ const ChatHistory = () => {
 
                         <br />
 
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <div style={{ color: "grey", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
                                 Name
                             </p>
@@ -327,9 +327,9 @@ const ChatHistory = () => {
                         </div>
 
 
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <div style={{ color: "grey", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Eamil
+                                Name
                             </p>
                             <p>
                                 Mrityunjay Kumar
@@ -337,9 +337,9 @@ const ChatHistory = () => {
                         </div>
 
 
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <div style={{ color: "grey", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Phone
+                                Name
                             </p>
                             <p>
                                 Mrityunjay Kumar
@@ -354,23 +354,32 @@ const ChatHistory = () => {
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Agent ID
+                                Name
                             </p>
                             <p>
-                                
+                                Mrityunjay Kumar
                             </p>
                         </div>
 
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Agent Name
+                                Name
                             </p>
                             <p>
-                                
+                                Mrityunjay Kumar
                             </p>
                         </div>
 
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
                     </div>
                     <hr />
 
@@ -381,24 +390,32 @@ const ChatHistory = () => {
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Account Id
+                                Name
                             </p>
                             <p>
-                                
+                                Mrityunjay Kumar
                             </p>
                         </div>
 
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Account Status
+                                Name
                             </p>
                             <p>
-                                
+                                Mrityunjay Kumar
                             </p>
                         </div>
 
 
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
                     </div>
                     <hr />
 
@@ -409,23 +426,32 @@ const ChatHistory = () => {
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Sentiment
+                                Name
                             </p>
                             <p>
-                                Neutral
+                                Mrityunjay Kumar
                             </p>
                         </div>
 
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Score
+                                Name
                             </p>
                             <p>
-                                0.9
+                                Mrityunjay Kumar
                             </p>
                         </div>
 
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
                     </div>
                     <hr />
 
@@ -436,18 +462,35 @@ const ChatHistory = () => {
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <p>
-                                Untitled
+                                Name
                             </p>
                             <p>
-                                
+                                Mrityunjay Kumar
                             </p>
                         </div>
 
-                    </div>
 
-                    {/* 
-                    
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+
+
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <p>
+                                Name
+                            </p>
+                            <p>
+                                Mrityunjay Kumar
+                            </p>
+                        </div>
+                    </div>
                     <hr />
+
                     <div style={{ padding: "1rem", margin: "1rem 0" }}>
                         <h3 style={{}}> TICKET - FRESHDESK </h3>
 
@@ -483,7 +526,6 @@ const ChatHistory = () => {
                         </div>
                     </div>
                     <hr />
-                     */}
                 </div>
             </div>
 
