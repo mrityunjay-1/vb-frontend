@@ -5,24 +5,26 @@ import "./call-history.css";
 
 const Caller = ({ details, currSession }: any) => {
 
-    console.log("details: ", details.sessionId);
-    console.log("currSession: ", currSession);
+    // console.log("details: ", details);
+    // console.log("currSession: ", currSession);
 
     return (
         <>
-            <div onClick={() => details.callback(details.sessionId)} className="caller" style={{ borderRadius: "0.3rem", padding: "1.5rem 1rem", display: "flex", borderBottom: "0.01rem solid lightgrey", backgroundColor: currSession === details.sessionId ? "#e6e6e6" : "white" }}>
+            <div onClick={() => details.callback(details.sessionId, details)} className="caller" style={{ borderRadius: "0.3rem", padding: "1.5rem 1rem", display: "flex", borderBottom: "0.01rem solid lightgrey", backgroundColor: currSession === details.sessionId ? "#e6e6e6" : "white" }}>
 
                 <div style={{ width: "14%" }}>
 
                     <h3 style={{ backgroundColor: "rgb(169,253, 166)", width: "2.5rem", height: "2.5rem", border: "0.1rem rgb(169,253, 166) grey", borderRadius: "4rem", display: "grid", placeItems: "center" }}>
-                        {details.name[0]}
+                        {details?.name ? details?.name[0] : "P"}
                     </h3>
 
                 </div>
 
                 <div style={{ width: "78%", padding: "0.2rem 1rem", display: "flex", flexDirection: "column" }}>
-                    <h2 style={{ marginBottom: "0.5rem" }}>{details.phone}</h2>
-                    <p style={{ color: "darkgrey" }}>{details.sessionId ?? "Alsngfkdfngknjdfnjhkgfjnhkjfgnkhn"}</p>
+                    <h2 style={{ marginBottom: "0.5rem" }}>{details?.name ? (details?.name + " - Ph: ") : "User Name"}{details?.phone ?? ""}</h2>
+                    <p title={`unique conversation id : ${details?.sessionId}`} style={{ color: "darkgrey" }}>CID: {details?.sessionId ?? "Alsngfkdfngknjdfnjhkgfjnhkjfgnkhn"}</p>
+                    <br />
+                    <p title={`startDateTime : ${details?.startDateTime}`} style={{ color: "darkgrey" }}>{details?.startDateTime ? new Date(details?.startDateTime).toLocaleString() : ""}</p>
                 </div>
 
             </div>
@@ -35,7 +37,9 @@ const ChatHistory = () => {
 
     const [allSessions, setAllSessions] = useState([]);
     const [currSession, setCurrSession] = useState("");
-    const [currSessionDetails, setCurrSessionDetails] = useState([]);
+    const [currSessionDetails, setCurrSessionDetails]: [any, any] = useState([]);
+
+    const [currSessionUserDetails, setCurrSessionUserDetails] = useState({name: "", phone: "", email: ""});
 
     // const [audio, setAudio] = useState();
     // var audio = new Audio('http://localhost:5000/MZ1ba472049bedce2be9bd15febdb89542/user_20230221144755.wav');
@@ -145,15 +149,17 @@ const ChatHistory = () => {
 
                     <div style={{ overflowY: "scroll", padding: "1rem" }}>
                         {
-                            allSessions && allSessions.map((sid) => {
+                            allSessions && allSessions.map((sid: any) => {
                                 return (
                                     <Caller
                                         currSession={currSession}
                                         details={{
-                                            name: "User",
-                                            phone: "Phone",
-                                            sessionId: sid,
-                                            callback: (sid: string) => setCurrSession(sid)
+                                            sessionId: sid.id,
+                                            ...sid.user_details,
+                                            callback: (sid: string, user_details: any) => {
+                                                setCurrSession(sid);
+                                                setCurrSessionUserDetails(user_details);
+                                            }
                                         }}
                                     />
                                 );
@@ -282,15 +288,20 @@ const ChatHistory = () => {
                 </div>
 
                 {/* User profile details */}
+                
                 <div style={{ overflowY: "scroll" }}>
 
                     <div style={{ display: "flex", padding: "1rem", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                        <p style={{ width: "8rem", height: "8rem", backgroundColor: "lightgreen", borderRadius: "10rem" }}>
-                            <img src="https://mrityunjay-1.github.io/portfolio/static/media/my_profile_img.fdf6ddba.png" alt="profileimage" style={{ width: "100%", height: "100%", borderRadius: "10rem" }} />
+                        <p style={{ fontSize: "4rem", color: "grey", width: "8rem", height: "8rem", backgroundColor: "lightgreen", borderRadius: "10rem", display: "grid", placeItems: "center" }}>
+                            {/* <img src="https://mrityunjay-1.github.io/portfolio/static/media/my_profile_img.fdf6ddba.png" alt="profileimage" style={{ width: "100%", height: "100%", borderRadius: "10rem" }} /> */}
+
+                            {/* <h3 style={{ backgroundColor: "rgb(169,253, 166)", width: "2.5rem", height: "2.5rem", border: "0.1rem rgb(169,253, 166) grey", borderRadius: "4rem", display: "grid", placeItems: "center" }}> */}
+                            {(currSessionUserDetails && currSessionUserDetails?.name) ? currSessionUserDetails?.name[0] : "P"}
+                            {/* </h3> */}
                         </p>
                         <br />
-                        <p style={{ fontSize: "1.4rem", marginBottom: "0.5rem" }}>{"Mrityunjay Kumar"}</p>
-                        <p style={{ fontSize: "1.2rem", color: "grey" }}>{"7004516734"}</p>
+                        <p style={{ fontSize: "1.4rem", marginBottom: "0.5rem" }}>{(currSessionUserDetails && currSessionUserDetails?.name) ? currSessionUserDetails?.name : "User Name: NA"}</p>
+                        <p style={{ fontSize: "1.2rem", color: "grey" }}>{(currSessionUserDetails && currSessionUserDetails?.email) ? (currSessionUserDetails?.email + " | ") : ""}{(currSessionUserDetails && currSessionUserDetails?.phone) ? currSessionUserDetails?.phone : "Phone: NA"}</p>
 
                         {/* Making custom audio player in js */}
 
@@ -307,7 +318,7 @@ const ChatHistory = () => {
                         </div> */}
 
                         <audio controls style={{ height: "2.5rem", width: "100%" }}>
-                            <source src="http://localhost:5000/MZ042f29660d65958cf66bd3ddfd7d7e72/user_20230221143123.wav" />
+                            <source src="" />
                         </audio>
                     </div>
 
@@ -322,7 +333,7 @@ const ChatHistory = () => {
                                 Name
                             </p>
                             <p>
-                                Mrityunjay Kumar
+                            {(currSessionUserDetails && currSessionUserDetails?.name) ? currSessionUserDetails?.name : "NA"}
                             </p>
                         </div>
 
@@ -332,7 +343,7 @@ const ChatHistory = () => {
                                 Eamil
                             </p>
                             <p>
-                                Mrityunjay Kumar
+                            {(currSessionUserDetails && currSessionUserDetails?.email) ? currSessionUserDetails?.email : "NA"}
                             </p>
                         </div>
 
@@ -342,7 +353,7 @@ const ChatHistory = () => {
                                 Phone
                             </p>
                             <p>
-                                Mrityunjay Kumar
+                            {(currSessionUserDetails && currSessionUserDetails?.phone) ? currSessionUserDetails?.phone : "NA"}
                             </p>
                         </div>
                     </div>
@@ -357,7 +368,7 @@ const ChatHistory = () => {
                                 Agent ID
                             </p>
                             <p>
-                                
+
                             </p>
                         </div>
 
@@ -367,7 +378,7 @@ const ChatHistory = () => {
                                 Agent Name
                             </p>
                             <p>
-                                
+
                             </p>
                         </div>
 
@@ -384,7 +395,7 @@ const ChatHistory = () => {
                                 Account Id
                             </p>
                             <p>
-                                
+
                             </p>
                         </div>
 
@@ -394,7 +405,7 @@ const ChatHistory = () => {
                                 Account Status
                             </p>
                             <p>
-                                
+
                             </p>
                         </div>
 
@@ -439,7 +450,7 @@ const ChatHistory = () => {
                                 Untitled
                             </p>
                             <p>
-                                
+
                             </p>
                         </div>
 
@@ -485,6 +496,8 @@ const ChatHistory = () => {
                     <hr />
                      */}
                 </div>
+
+
             </div>
 
         </div>
