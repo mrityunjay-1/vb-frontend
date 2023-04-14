@@ -88,3 +88,7 @@ audio::-webkit-media-controls-timeline-container {
     background-color: red;
     color: red;
 }
+
+#actual-logs-viewer::-webkit-scrollbar{
+    display: none;
+}

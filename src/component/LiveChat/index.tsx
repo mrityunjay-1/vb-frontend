@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import socketio from "socket.io-client";
-const socket = socketio("http://localhost:9000");
+// import socketio from "socket.io-client";
+// // const socket = socketio("http://localhost:9000");
 
 const LiveChat = () => {
 
@@ -8,12 +8,12 @@ const LiveChat = () => {
 
     useEffect(() => {
 
-        socket.emit("getLiveUsers", "");
+        // socket.emit("getLiveUsers", "");
 
-        socket.on("showliveUsers", (users: any) => {
-            console.log("users: ", users);
-            setLiveUsers(users);;
-        });
+        // socket.on("showliveUsers", (users: any) => {
+        //     console.log("users: ", users);
+        //     setLiveUsers(users);;
+        // });
 
     }, []);
 
@@ -26,11 +26,11 @@ const LiveChat = () => {
                     return (
                         <div onClick={() => {
 
-                            socket.emit("join_room", {
-                                roomName: user.roomName,
-                                userType: "agent",
+                            // socket.emit("join_room", {
+                            //     roomName: user.roomName,
+                            //     userType: "agent",
 
-                            })
+                            // })
 
                         }} style={{ padding: "2rem", border: "0.1rem solid grey" }}>
                             <p>{user.name}</p>

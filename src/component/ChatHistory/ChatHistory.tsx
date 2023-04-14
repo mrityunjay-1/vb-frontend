@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Header from "../Header/Header";
 import "./call-history.css";
 
@@ -8,7 +8,7 @@ import socketIOClient from "socket.io-client";
 import { CalendarFilled, CalendarOutlined, RedoOutlined, FilterOutlined } from "@ant-design/icons";
 
 
-const socket = socketIOClient("http://127.0.0.1:9000");
+let socket;
 
 const Caller = ({ details, currSession }: any) => {
 
@@ -43,7 +43,12 @@ const Caller = ({ details, currSession }: any) => {
 const ChatHistory = () => {
 
     const [allSessions, setAllSessions] = useState([]);
+
     const [currSession, setCurrSession] = useState("");
+
+    const currSelectedSession: any = useRef(null);
+    const actualLogsViewer: any = useRef(null);
+
     const [currSessionDetails, setCurrSessionDetails]: [any, any] = useState([]);
 
     const [currSessionUserDetails, setCurrSessionUserDetails] = useState({ name: "", phone: "", email: "" });
@@ -122,6 +127,8 @@ const ChatHistory = () => {
 
     useEffect(() => {
 
+        socket = socketIOClient(`${process.env.REACT_APP_SERVER_URL}`);
+
         socket.emit("getLiveUsers", "");
 
         socket.on("showliveUsers", (users) => {
@@ -129,9 +136,33 @@ const ChatHistory = () => {
             setCurrLiveUsers(users);
         });
 
-        socket.on("liveMessage", (data) => {
-            // roomname
-            // 
+        socket.on("liveBroadcastChatData", (data) => {
+
+            console.log("currSession: ", currSelectedSession.current);
+            console.log("liveBroadcastChatData events says: ", data);
+
+            if (currSelectedSession.current === data.socketId) {
+
+                console.log("actualLogsViewer : ", actualLogsViewer.current);
+
+                const { offsetHeight, scrollTop, scrollHeight } = actualLogsViewer.current;
+
+                console.log({ offsetHeight, scrollTop, scrollHeight });
+
+                // console.log({ offsetHeight, scrollTop, scrollHeight });
+
+                // if (offsetHeight + scrollTop === scrollHeight) {
+                actualLogsViewer.current.scrollIntoView({
+                    behavior: "smooth"
+                })
+                // }
+
+                setCurrSessionDetails(data.chat_session_data);
+
+
+
+            }
+
         });
 
     }, []);
@@ -141,6 +172,7 @@ const ChatHistory = () => {
         if (currLiveUsers?.length === 0) {
             setCurrSessionDetails([]);
             setCurrSession("");
+            currSelectedSession.current = null;
             setCurrSessionUserDetails({ name: "", phone: "", email: "" });
         }
 
@@ -201,6 +233,7 @@ const ChatHistory = () => {
                                                                 ...liveUser,
                                                                 callback: (sid: string, user_details: any) => {
                                                                     setCurrSession(sid);
+                                                                    currSelectedSession.current = sid;
                                                                     setCurrSessionUserDetails(user_details);
                                                                 }
                                                             }}
@@ -227,6 +260,7 @@ const ChatHistory = () => {
                                             ...sid.user_details,
                                             callback: (sid: string, user_details: any) => {
                                                 setCurrSession(sid);
+                                                currSelectedSession.current = sid;
                                                 setCurrSessionUserDetails(user_details);
                                             }
                                         }}
@@ -245,7 +279,7 @@ const ChatHistory = () => {
                         <span style={{ fontSize: "1.4rem", fontWeight: "bold" }}>Call History Data</span>
                     </div>
 
-                    <div style={{ overflowY: "scroll", padding: "1rem" }}>
+                    <div id="actual-logs-viewer" style={{ overflowY: "scroll", padding: "1rem" }}>
                         {
                             currSessionDetails && currSessionDetails.map((chats: { user: { time: string, text: string, audio: string }, bot: { time: string, text: string, audio: string } }) => {
 
@@ -352,6 +386,8 @@ const ChatHistory = () => {
                                 );
                             })
                         }
+
+                        <div ref={actualLogsViewer} />
 
                     </div>
                 </div>
