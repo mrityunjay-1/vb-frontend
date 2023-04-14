@@ -30,7 +30,7 @@ const App = () => {
 
           {/* Oribo Logo */}
           <NavLink to="/" className="nav-link" style={{ margin: 0 }}>
-            <img src="https://vil-email-sprint-dashboard.oriserve.com/static/media/ori-logo-solo.2b103573806a735ad176.png" style={{ width: "50%" }} />
+            <img alt="logo" src="https://vil-email-sprint-dashboard.oriserve.com/static/media/ori-logo-solo.2b103573806a735ad176.png" style={{ width: "50%" }} />
             <p style={{ textAlign: "center" }}>v1.1</p>
           </NavLink>
 

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // import socketio from "socket.io-client";
 // // const socket = socketio("http://localhost:9000");
 
 const LiveChat = () => {
 
-    const [liveUsers, setLiveUsers] = useState([]);
+    // const [liveUsers, setLiveUsers] = useState([]);
 
     useEffect(() => {
 
@@ -20,7 +20,7 @@ const LiveChat = () => {
     return (
         <>
             <p>Live Chat</p>
-
+            {/* 
             {
                 liveUsers?.map((user: any) => {
                     return (
@@ -37,7 +37,7 @@ const LiveChat = () => {
                         </div>
                     );
                 })
-            }
+            } */}
 
         </>
     );
