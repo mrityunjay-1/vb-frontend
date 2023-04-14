@@ -5,7 +5,7 @@ import "./call-history.css";
 
 import socketIOClient from "socket.io-client";
 
-import { CalendarFilled, CalendarOutlined, RedoOutlined, FilterOutlined } from "@ant-design/icons";
+import { CalendarOutlined, RedoOutlined, FilterOutlined } from "@ant-design/icons";
 
 
 let socket;
