@@ -3,6 +3,13 @@ import { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import "./call-history.css";
 
+import socketIOClient from "socket.io-client";
+
+import { CalendarFilled, CalendarOutlined, RedoOutlined, FilterOutlined } from "@ant-design/icons";
+
+
+const socket = socketIOClient("http://127.0.0.1:9000");
+
 const Caller = ({ details, currSession }: any) => {
 
     // console.log("details: ", details);
@@ -39,7 +46,9 @@ const ChatHistory = () => {
     const [currSession, setCurrSession] = useState("");
     const [currSessionDetails, setCurrSessionDetails]: [any, any] = useState([]);
 
-    const [currSessionUserDetails, setCurrSessionUserDetails] = useState({name: "", phone: "", email: ""});
+    const [currSessionUserDetails, setCurrSessionUserDetails] = useState({ name: "", phone: "", email: "" });
+
+    const [currLiveUsers, setCurrLiveUsers] = useState([]);
 
     // const [audio, setAudio] = useState();
     // var audio = new Audio('http://localhost:5000/MZ1ba472049bedce2be9bd15febdb89542/user_20230221144755.wav');
@@ -111,6 +120,32 @@ const ChatHistory = () => {
         if (currSession) getSessionDetails(currSession);
     }, [currSession]);
 
+    useEffect(() => {
+
+        socket.emit("getLiveUsers", "");
+
+        socket.on("showliveUsers", (users) => {
+            console.log("Users: ", users);
+            setCurrLiveUsers(users);
+        });
+
+        socket.on("liveMessage", (data) => {
+            // roomname
+            // 
+        });
+
+    }, []);
+
+    useEffect(() => {
+
+        if (currLiveUsers?.length === 0) {
+            setCurrSessionDetails([]);
+            setCurrSession("");
+            setCurrSessionUserDetails({ name: "", phone: "", email: "" });
+        }
+
+    }, [currLiveUsers]);
+
     return (
         <div className="call-history-container">
 
@@ -123,19 +158,19 @@ const ChatHistory = () => {
             <div className="call-history-container-summary-filter">
                 {/* Filter goes here */}
 
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>🗓️</p>
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.5rem" }}><CalendarOutlined /></p>
 
-                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3%", height: "2rem", marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }} />
+                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3% 1%", height: "2rem", marginRight: "2rem", cursor: "pointer", borderRadius: "0.5rem", fontSize: "1.1rem" }} />
 
                 <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>~</p>
 
-                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3%", height: "2rem", marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }} />
+                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3% 1%", height: "2rem", marginRight: "2rem", cursor: "pointer", borderRadius: "0.5rem", fontSize: "1.1rem" }} />
 
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>APPLY FILTERS</p>
+                <button style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.1rem", border: "0.1rem solid lightgrey", padding: "0.5% 1.5%", borderRadius: "0.5rem", background: "none" }}>APPLY FILTERS</button>
 
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>🔄</p>
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.5rem" }}><RedoOutlined /></p>
 
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>🧲</p>
+                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.5rem" }}><FilterOutlined /></p>
             </div>
 
             <div className="call-history-container-data-viewer">
@@ -148,6 +183,40 @@ const ChatHistory = () => {
                     </div>
 
                     <div style={{ overflowY: "scroll", padding: "1rem" }}>
+
+                        {
+                            currLiveUsers?.length > 0 ?
+                                <>
+                                    <div style={{ padding: "1rem 0", borderBottom: "0.1rem solid grey" }}>
+                                        <h2>Live Chats</h2>
+                                        <br />
+                                        {
+                                            currLiveUsers?.map((liveUser: any) => {
+                                                return (
+                                                    <>
+                                                        <Caller
+                                                            currSession={currSession}
+                                                            details={{
+                                                                sessionId: liveUser.socketId,
+                                                                ...liveUser,
+                                                                callback: (sid: string, user_details: any) => {
+                                                                    setCurrSession(sid);
+                                                                    setCurrSessionUserDetails(user_details);
+                                                                }
+                                                            }}
+                                                        />
+                                                    </>
+                                                );
+                                            })
+                                        }
+                                    </div>
+                                </>
+                                :
+                                null
+                        }
+
+
+
                         {
                             allSessions && allSessions.map((sid: any) => {
                                 return (
@@ -288,7 +357,7 @@ const ChatHistory = () => {
                 </div>
 
                 {/* User profile details */}
-                
+
                 <div style={{ overflowY: "scroll" }}>
 
                     <div style={{ display: "flex", padding: "1rem", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -333,7 +402,7 @@ const ChatHistory = () => {
                                 Name
                             </p>
                             <p>
-                            {(currSessionUserDetails && currSessionUserDetails?.name) ? currSessionUserDetails?.name : "NA"}
+                                {(currSessionUserDetails && currSessionUserDetails?.name) ? currSessionUserDetails?.name : "NA"}
                             </p>
                         </div>
 
@@ -343,7 +412,7 @@ const ChatHistory = () => {
                                 Eamil
                             </p>
                             <p>
-                            {(currSessionUserDetails && currSessionUserDetails?.email) ? currSessionUserDetails?.email : "NA"}
+                                {(currSessionUserDetails && currSessionUserDetails?.email) ? currSessionUserDetails?.email : "NA"}
                             </p>
                         </div>
 
@@ -353,7 +422,7 @@ const ChatHistory = () => {
                                 Phone
                             </p>
                             <p>
-                            {(currSessionUserDetails && currSessionUserDetails?.phone) ? currSessionUserDetails?.phone : "NA"}
+                                {(currSessionUserDetails && currSessionUserDetails?.phone) ? currSessionUserDetails?.phone : "NA"}
                             </p>
                         </div>
                     </div>
