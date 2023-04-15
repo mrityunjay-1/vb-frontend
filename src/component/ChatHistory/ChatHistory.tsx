@@ -1,12 +1,11 @@
 
 import { useEffect, useState, useRef } from "react";
 import Header from "../Header/Header";
-import "./call-history.css";
+import "./css/call-history.css";
 
 import socketIOClient from "socket.io-client";
 
-import { CalendarOutlined, RedoOutlined, FilterOutlined } from "@ant-design/icons";
-
+import Filter from "./Filter";
 
 let socket;
 
@@ -192,19 +191,12 @@ const ChatHistory = () => {
             <div className="call-history-container-summary-filter">
                 {/* Filter goes here */}
 
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.5rem" }}><CalendarOutlined /></p>
+                <Filter
+                    callback={(filter: any) => {
+                        console.log("selected filter : ", filter);
+                    }}
+                />
 
-                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3% 1%", height: "2rem", marginRight: "2rem", cursor: "pointer", borderRadius: "0.5rem", fontSize: "1.1rem" }} />
-
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.3rem" }}>~</p>
-
-                <input type="date" style={{ border: "0.01rem solid lightgrey", padding: "0.3% 1%", height: "2rem", marginRight: "2rem", cursor: "pointer", borderRadius: "0.5rem", fontSize: "1.1rem" }} />
-
-                <button style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.1rem", border: "0.1rem solid lightgrey", padding: "0.5% 1.5%", borderRadius: "0.5rem", background: "none" }}>APPLY FILTERS</button>
-
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.5rem" }}><RedoOutlined /></p>
-
-                <p style={{ marginRight: "2rem", cursor: "pointer", fontSize: "1.5rem" }}><FilterOutlined /></p>
             </div>
 
             <div className="call-history-container-data-viewer">
