@@ -174,6 +174,8 @@ const ChatHistory = () => {
             setCurrSession("");
             currSelectedSession.current = null;
             setCurrSessionUserDetails({ name: "", phone: "", email: "" });
+        } else {
+            getAllSessions();
         }
 
     }, [currLiveUsers]);
@@ -256,8 +258,8 @@ const ChatHistory = () => {
                                     <Caller
                                         currSession={currSession}
                                         details={{
-                                            sessionId: sid.id,
-                                            ...sid.user_details,
+                                            sessionId: sid.socketId,
+                                            ...sid,
                                             callback: (sid: string, user_details: any) => {
                                                 setCurrSession(sid);
                                                 currSelectedSession.current = sid;
