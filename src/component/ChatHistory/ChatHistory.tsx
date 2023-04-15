@@ -335,7 +335,6 @@ const ChatHistory = () => {
                                                 null
                                         }
 
-
                                         {/* aur bot hai mai */}
 
                                         {
@@ -385,6 +384,14 @@ const ChatHistory = () => {
                                     </div>
                                 );
                             })
+                        }
+
+                        {/* If there is no chats to show */}
+                        {
+                            !(currSessionDetails?.length > 0) ?
+                                <p style={{ textAlign: "center" }}>There is no chat logs for this chat as of now...</p>
+                                :
+                                null
                         }
 
                         <div ref={actualLogsViewer} />
