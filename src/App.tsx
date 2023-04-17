@@ -29,20 +29,16 @@ const App = () => {
         <div className="container-left">
 
           {/* Oribo Logo */}
-          <NavLink to="/" className="nav-link" style={{ margin: 0 }}>
+          <NavLink to="/" className="nav-link" style={{ margin: 0, backgroundColor: "white" }}>
             <img alt="logo" src="https://vil-email-sprint-dashboard.oriserve.com/static/media/ori-logo-solo.2b103573806a735ad176.png" style={{ width: "50%" }} />
             <p style={{ textAlign: "center" }}>v1.1</p>
           </NavLink>
 
           {
             routes?.map((route: any) => {
-
-              // console.log("window.location.pathname.includes(route?.routeUrl) : ", window?.location?.pathname?.endsWith(route?.routeUrl));
-
               return (
                 <>
-                  <NavLink to={route?.routeUrl} className="nav-link" style={{ background: window?.location?.pathname?.includes(route?.routeUrl) ? "lightgreen" : "none" }}>
-                    {/* <img src="https://vil-email-sprint-dashboard.oriserve.com/static/media/ori-logo-solo.2b103573806a735ad176.png" style={{ width: "30%" }} /> */}
+                  <NavLink to={route?.routeUrl} className={({ isActive }) => (["nav-link", isActive ? "active" : null].join(" "))} >
                     <h1>{route.icon}</h1>
                     <p>{route?.routeName}</p>
                   </NavLink>

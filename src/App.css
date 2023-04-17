@@ -35,6 +35,10 @@
     flex-direction: column;
 }
 
-.nav-link > p {
+.active {
+    background-color: lightgreen;
+}
+
+.nav-link>p {
     padding: 0.3rem;
 }
