@@ -41,7 +41,7 @@ const Caller = ({ details, currSession }: any) => {
 
 const ChatHistory = () => {
 
-    const [allSessions, setAllSessions] = useState([]);
+    const [allSessions, setAllSessions]: any = useState([]);
 
     const [currSession, setCurrSession] = useState("");
 
@@ -54,6 +54,11 @@ const ChatHistory = () => {
 
     const [currLiveUsers, setCurrLiveUsers] = useState([]);
 
+    const [skip, setSkip] = useState(0);
+
+    // isLazyLoadingForSessions
+    const [isLazyLoadingForSessions, setIsLazyLoadingForSessions] = useState(false);
+
     // const [audio, setAudio] = useState();
     // var audio = new Audio('http://localhost:5000/MZ1ba472049bedce2be9bd15febdb89542/user_20230221144755.wav');
     // audio.play();
@@ -61,7 +66,7 @@ const ChatHistory = () => {
     const getAllSessions = async () => {
         try {
 
-            const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}/getAllTheSessions`);
+            const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}/getAllTheSessions?skip=${skip}&limit=15`);
             const res = await raw_res.json();
 
             console.log("response for getting all the sessions: ", res);
@@ -71,10 +76,13 @@ const ChatHistory = () => {
                 return null;
             }
 
-            setAllSessions(res);
+            setAllSessions([...allSessions, ...res]);
+
+            setIsLazyLoadingForSessions(false);
 
         } catch (err) {
             console.log("err: ", err);
+            setIsLazyLoadingForSessions(false);
         }
     }
 
@@ -116,14 +124,39 @@ const ChatHistory = () => {
 
     }
 
+    const loadMoreSessions = (e: any) => {
+        try {
+            const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+            if (scrollHeight - (offsetHeight + scrollTop) < 10) {
+                if (skip === allSessions.length) {
+                    setIsLazyLoadingForSessions(false);
+                    return;
+                };
+                setSkip(allSessions.length);
+                setIsLazyLoadingForSessions(true);
+            }
+        } catch (err) {
+            console.log("Error in loadMoreSessions function: ", err);
+        }
+    }
+
+    // use effect for loading all the sessions
+    // dependency is skip as whenvever this skip state change i need to load the next batch of sessions...
     useEffect(() => {
         getAllSessions();
-    }, []);
+        // eslint-disable-next-line
+    }, [skip]);
 
+    // used for loading the selected session details 
     useEffect(() => {
         if (currSession) getSessionDetails(currSession);
     }, [currSession]);
 
+    // general useEffect for socket communication
+    // initializing socket to backend server
+    // also listening various events like "getLiveUsers", "showLiveUsers", "liveBroadcastChatData"
+    // the basic idea to use this is to load the real time chat feed here in this component
     useEffect(() => {
 
         socket = socketIOClient(`${process.env.REACT_APP_SERVER_URL}`);
@@ -157,9 +190,6 @@ const ChatHistory = () => {
                 // }
 
                 setCurrSessionDetails(data.chat_session_data);
-
-
-
             }
 
         });
@@ -176,7 +206,7 @@ const ChatHistory = () => {
         } else {
             getAllSessions();
         }
-
+        // eslint-disable-next-line
     }, [currLiveUsers]);
 
     return (
@@ -208,8 +238,9 @@ const ChatHistory = () => {
                         <span style={{ fontSize: "1.4rem", fontWeight: "bold" }}>Call History Data</span>
                     </div>
 
-                    <div style={{ overflowY: "scroll", padding: "1rem" }}>
+                    <div onScroll={loadMoreSessions} style={{ overflowY: "scroll", padding: "1rem" }}>
 
+                        {/* Live users feed */}
                         {
                             currLiveUsers?.length > 0 ?
                                 <>
@@ -242,7 +273,7 @@ const ChatHistory = () => {
                                 null
                         }
 
-
+                        {/* Already Completed sessions meaning history of the sessions... */}
 
                         {
                             allSessions && allSessions.map((sid: any) => {
@@ -263,6 +294,15 @@ const ChatHistory = () => {
                             })
                         }
                     </div>
+
+                    {
+                        isLazyLoadingForSessions ?
+                            <>
+                                <h1 style={{ fontSize: "4rem", textAlign: "center" }}>Loading...</h1>
+                            </>
+                            :
+                            null
+                    }
 
                 </div>
 
