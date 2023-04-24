@@ -69,7 +69,7 @@ const ChatHistory = () => {
             const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}/getAllTheSessions?skip=${skip}&limit=15`);
             const res = await raw_res.json();
 
-            console.log("response for getting all the sessions: ", res);
+            // console.log("response for getting all the sessions: ", res);
 
             if (!res || res.length === 0) {
                 console.error("Error ocurred: ");
@@ -164,7 +164,7 @@ const ChatHistory = () => {
         socket.emit("getLiveUsers", "");
 
         socket.on("showliveUsers", (users) => {
-            console.log("Users: ", users);
+            // console.log("Users: ", users);
             setCurrLiveUsers(users);
         });
 
