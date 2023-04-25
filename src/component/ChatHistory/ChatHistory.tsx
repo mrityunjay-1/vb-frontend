@@ -6,13 +6,11 @@ import "./css/call-history.css";
 import socketIOClient from "socket.io-client";
 
 import Filter from "./Filter";
+import { useAuth } from "../../context/AuthContext";
 
 let socket;
 
 const Caller = ({ details, currSession }: any) => {
-
-    // console.log("details: ", details);
-    // console.log("currSession: ", currSession);
 
     return (
         <>
@@ -41,6 +39,10 @@ const Caller = ({ details, currSession }: any) => {
 
 const ChatHistory = () => {
 
+    const authData: any = useAuth();
+
+    console.log("authdata in chat history page: ", authData);
+
     const [allSessions, setAllSessions]: any = useState([]);
 
     const [currSession, setCurrSession] = useState("");
@@ -66,7 +68,11 @@ const ChatHistory = () => {
     const getAllSessions = async () => {
         try {
 
-            const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}/getAllTheSessions?skip=${skip}&limit=15`);
+            const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}/getAllTheSessions?skip=${skip}&limit=15`, {
+                headers: {
+                    "Authorization": "Bearer " + authData.data.token
+                }
+            });
             const res = await raw_res.json();
 
             // console.log("response for getting all the sessions: ", res);
@@ -91,7 +97,11 @@ const ChatHistory = () => {
 
             console.log("sessionId: ", sessionId);
 
-            const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}/getSession/${sessionId}`);
+            const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}/getSession/${sessionId}`, {
+                headers: {
+                    "Authorization": "Bearer " + authData.data.token
+                }
+            });
             const res = await raw_res.json();
 
             console.log("Response: ", res);
@@ -151,6 +161,7 @@ const ChatHistory = () => {
     // used for loading the selected session details 
     useEffect(() => {
         if (currSession) getSessionDetails(currSession);
+        // eslint-disable-next-line
     }, [currSession]);
 
     // general useEffect for socket communication
