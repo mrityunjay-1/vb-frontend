@@ -159,8 +159,10 @@ const ChatHistory = () => {
     }, [skip]);
 
     // used for loading the selected session details 
+    // you can also check the dependency provided to use Effect
     useEffect(() => {
         if (currSession) getSessionDetails(currSession);
+        
         // eslint-disable-next-line
     }, [currSession]);
 
