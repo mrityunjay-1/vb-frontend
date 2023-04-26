@@ -7,6 +7,7 @@ import socketIOClient from "socket.io-client";
 
 import Filter from "./Filter";
 import { useAuth } from "../../context/AuthContext";
+import { DislikeOutlined, LikeOutlined } from "@ant-design/icons";
 
 let socket;
 
@@ -162,7 +163,7 @@ const ChatHistory = () => {
     // you can also check the dependency provided to use Effect
     useEffect(() => {
         if (currSession) getSessionDetails(currSession);
-        
+
         // eslint-disable-next-line
     }, [currSession]);
 
@@ -410,8 +411,8 @@ const ChatHistory = () => {
                                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
 
                                                                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                                                    <p style={{ cursor: "pointer", width: "4%" }}>👍</p>
-                                                                    <p style={{ cursor: "pointer", width: "4%" }}>👎</p>
+                                                                    <p className="like-button" title="Like This Response"><LikeOutlined /></p>
+                                                                    <p className="dislike-button" title="Dislike This Response"><DislikeOutlined /></p>
                                                                 </div>
 
                                                                 <div>
