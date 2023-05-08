@@ -1,13 +1,17 @@
 import { LogoutOutlined } from "@ant-design/icons";
 import "./header.css";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ Title, children }: any) => {
+
+    const navigate = useNavigate();
 
     const authData: any = useAuth();
 
     const logout = () => {
         authData.logout();
+        navigate("/login");
     }
 
     return (

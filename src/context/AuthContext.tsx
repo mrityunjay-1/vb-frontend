@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { createContext, useContext, useReducer } from "react";
+import fetchData from "../data/fetchData";
 
 const AuthContext = createContext({});
 
@@ -13,7 +14,7 @@ const reducer: any = (state: any, action: any) => {
             return action.payload;
 
         case "logout":
-            return { isLoggedIn: false };
+            return { isLoggedIn: false, isLoding: true };
 
         default:
             return state;
@@ -23,7 +24,18 @@ const reducer: any = (state: any, action: any) => {
 
 const Auth = ({ children }: any) => {
 
-    const [data, dispatch]: any = useReducer(reducer, { isLoggedIn: false });
+    let state: any = { isLoggedIn: false };
+
+    let localData = localStorage.getItem("AuthData");
+
+    console.log("under context: ", localData);
+
+    if (localData) {
+        state = JSON.parse(localData);
+        state.isLoggedIn = true;
+    }
+
+    const [data, dispatch]: any = useReducer(reducer, state);
 
     const login = async ({ email, password }: any) => {
         try {
@@ -40,7 +52,7 @@ const Auth = ({ children }: any) => {
 
             const res = await raw_res.json();
 
-            const payload = { isLoggedIn: true, ...res };
+            const payload = { isLoggedIn: true, ...res, isLoading: false };
 
             localStorage.setItem("AuthData", JSON.stringify(payload));
 
@@ -53,11 +65,31 @@ const Auth = ({ children }: any) => {
         }
     }
 
+    const signUp = async ({ name, email, password }: any) => {
+        try {
+
+            console.log("user sign up details : ", { name, email, password });
+
+            const res = await fetchData({ url: "/userSignUp", method: "POST", data: { name, email, password } });
+
+            console.log("Sign up response: ", res);
+
+            if (!res) {
+                return message.error("something went wrong while signing up!");
+            } else {
+                return true;
+            }
+
+        } catch (err) {
+            console.log("Error in sign up function: ", err)
+        }
+    }
+
     const logout = () => {
 
         const authData = localStorage.getItem("AuthData");
 
-        let userName  = "";
+        let userName = "";
 
         if (authData) {
             userName = (JSON.parse(authData)).name;
@@ -110,7 +142,7 @@ const Auth = ({ children }: any) => {
     return (
         <>
 
-            <AuthContext.Provider value={{ data, login, logout, checkIfLoggedIn }}>
+            <AuthContext.Provider value={{ data, signUp, login, logout, checkIfLoggedIn }}>
                 {children}
             </AuthContext.Provider>
 

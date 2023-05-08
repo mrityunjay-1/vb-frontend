@@ -1,3 +1,4 @@
+import Header from "../Header/Header";
 import { useEffect } from "react";
 // import socketio from "socket.io-client";
 // // const socket = socketio("http://localhost:9000");
@@ -19,7 +20,9 @@ const LiveChat = () => {
 
     return (
         <>
-            <p>Live Chat</p>
+
+            <Header Title="Live Chat" />
+
             {/* 
             {
                 liveUsers?.map((user: any) => {

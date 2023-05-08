@@ -1,12 +1,17 @@
-import { useAuth } from "../context/AuthContext";
 
 const fetchData = async ({ url = "/", method = "GET", headers = {}, data = {} }: any) => {
     try {
+        let localData: any = localStorage.getItem("AuthData");
 
-        const authData: any = useAuth();
+        console.log("localData : ", localData);
+
+        if (localData) {
+            localData = JSON.parse(localData);
+        }
 
         let newHeaders = {
-            "Authorization": "Bearer " + authData?.data?.token
+            "Authorization": "Bearer " + localData?.token,
+            "Content-Type": "application/json"
         };
 
         if (Object.keys(headers).length > 0) {
@@ -21,6 +26,8 @@ const fetchData = async ({ url = "/", method = "GET", headers = {}, data = {} }:
         if (Object.keys(data).length > 0) {
             options.body = JSON.stringify(data);
         }
+
+        console.log("options : ", options);
 
         const raw_res = await fetch(`${process.env.REACT_APP_SERVER_URL}${url}`, options);
 

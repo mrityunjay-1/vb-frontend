@@ -8,6 +8,7 @@ import socketIOClient from "socket.io-client";
 import Filter from "./Filter";
 import { useAuth } from "../../context/AuthContext";
 import { DislikeOutlined, LikeOutlined } from "@ant-design/icons";
+import fetchData from "../../data/fetchData";
 
 let socket;
 
@@ -42,7 +43,7 @@ const ChatHistory = () => {
 
     const authData: any = useAuth();
 
-    console.log("authdata in chat history page: ", authData);
+    // console.log("authdata in chat history page: ", authData);
 
     const [allSessions, setAllSessions]: any = useState([]);
 
@@ -329,7 +330,7 @@ const ChatHistory = () => {
 
                     <div id="actual-logs-viewer" style={{ overflowY: "scroll", padding: "1rem" }}>
                         {
-                            currSessionDetails && currSessionDetails.map((chats: { user: { time: string, text: string, audio: string }, bot: { time: string, text: string, audio: string } }) => {
+                            Array.isArray(currSessionDetails) && currSessionDetails.length > 0 && currSessionDetails.map((chats: { user: { time: string, text: string, audio: string }, bot: { time: string, text: string, audio: string } }) => {
 
                                 let date = chats?.user?.time;
                                 let time = chats?.user?.time;
