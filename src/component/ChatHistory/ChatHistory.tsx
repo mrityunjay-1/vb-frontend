@@ -8,7 +8,7 @@ import socketIOClient from "socket.io-client";
 import Filter from "./Filter";
 import { useAuth } from "../../context/AuthContext";
 import { DislikeOutlined, LikeOutlined } from "@ant-design/icons";
-import fetchData from "../../data/fetchData";
+// import fetchData from "../../data/fetchData";
 
 let socket;
 
