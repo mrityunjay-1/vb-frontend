@@ -15,7 +15,7 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [name, setName] = useState("");
 
-    const signUp = () => {
+    const signUp = async () => {
         try {
 
             if (!name || !email || !password || !confirmPassword) {
@@ -31,11 +31,13 @@ const SignUp = () => {
                 return message.error("password length should be atleast 8 characters...");
             }
 
-            authData.signUp({ name, email, password });
+            const isSignUpSuccessful = await authData.signUp({ name, email, password });
 
-            message.success("Great You are successfully signed up for VB. Kindly proceed to login now! ");
+            if (isSignUpSuccessful) {
+                message.success("Great You are successfully signed up for VB. Kindly proceed to login now! ");
+                navigate("/login");
+            }
 
-            navigate("/login");
 
         } catch (err) {
             console.log("Error while signing up...");

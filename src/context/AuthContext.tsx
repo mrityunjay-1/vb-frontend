@@ -75,7 +75,8 @@ const Auth = ({ children }: any) => {
             console.log("Sign up response: ", res);
 
             if (!res) {
-                return message.error("something went wrong while signing up!");
+                message.error("something went wrong while signing up!");
+                return false;
             } else {
                 return true;
             }
